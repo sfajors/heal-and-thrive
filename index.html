@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heal and Thrive Chicago — Turning Pain Into Purpose</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {} },
+      plugins: [flowbite.plugin],
+    }
+  </script>
+  <!-- Flowbite JS for collapse, dropdowns, etc. -->
+  <script src="https://unpkg.com/flowbite@latest/dist/flowbite.bundle.js"></script>
+
+  <style>
+    /* Page fade-in on load */
+    body {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+      opacity: 0;
+      animation: fadeIn 0.8s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Navbar transparent vs solid */
+    .navbar-transparent {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    .navbar-solid {
+      background-color: rgba(255,255,255,0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Link & brand coloring & transition */
+    .nav-link, .brand {
+      font-variant: all-small-caps;
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+    .navbar-transparent .nav-link,
+    .navbar-transparent .brand {
+      color: #ffffff;
+    }
+    .navbar-transparent .nav-link:hover,
+    .navbar-transparent {
+      color: #93c5fd; /* blue-300 */
+    }
+    .brand:hover {
+      text-decoration: underline;
+    }
+    .nav-link:hover {
+      font-weight: bold;
+      font-style: italic;
+    }
+    .navbar-solid .nav-link,
+    .navbar-solid .brand {
+      color: #1f2937; /* gray-800 */
+    }
+    .navbar-solid .nav-link:hover,
+    .navbar-solid .brand:hover {
+      color: #2563eb; /* blue-600 */
+    }
+
+    /* Navbar toggler icon coloring */
+    .navbar-transparent button {
+      color: #ffffff;
+    }
+    .navbar-solid button {
+      color: #1f2937;
+    }
+
+    /* Card hover effect */
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    
+  /* About us */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.9s ease-out both;
+  }
+  </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 navbar-transparent">
+    <div class="container mx-auto flex items-center justify-between px-4 py-3">
+      <!-- Brand -->
+      <a href="#home" class="brand text-2xl font-bold">Heal &amp; Thrive Chicago</a>
+
+      <!-- Hamburger Button (shown when screen < 1024px) -->
+      <button
+        type="button"
+        data-drawer-target="mobile-drawer"
+        data-drawer-show="mobile-drawer"
+        aria-controls="mobile-drawer"
+        aria-label="Open menu"
+        class="lg:hidden p-2 rounded text-white hover:text-blue-300 transition"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Desktop Nav (hidden below 1024px) -->
+      <div class="hidden lg:flex space-x-6">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#mission" class="nav-link">Mission &amp; Vision</a>
+        <a href="#programs" class="nav-link">Programs</a>
+        <a href="#partners" class="nav-link">Partners</a>
+        <a href="#get-involved" class="nav-link">Get Involved</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Sidebar -->
+  <div id="mobile-drawer"
+      class="fixed top-0 left-0 z-50 h-screen w-64 bg-white shadow-lg transition-transform duration-300 -translate-x-full lg:hidden"
+      tabindex="-1"
+      aria-labelledby="drawer-label">
+    <div class="flex items-center justify-between p-4 border-b">
+      <h2 class="text-xl font-bold" id="drawer-label">Menu</h2>
+      <!-- Close Icon -->
+      <button
+        type="button"
+        data-drawer-hide="mobile-drawer"
+        aria-controls="mobile-drawer"
+        aria-label="Close menu"
+        class="text-gray-700 hover:text-red-500"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="p-4 space-y-4">
+      <a href="#home" class="block nav-link" data-drawer-hide="mobile-drawer">Home</a>
+      <a href="#about" class="block nav-link" data-drawer-hide="mobile-drawer">About Us</a>
+      <a href="#mission" class="block nav-link" data-drawer-hide="mobile-drawer">Mission &amp; Vision</a>
+      <a href="#programs" class="block nav-link" data-drawer-hide="mobile-drawer">Programs</a>
+      <a href="#partners" class="block nav-link" data-drawer-hide="mobile-drawer">Partners</a>
+      <a href="#get-involved" class="block nav-link" data-drawer-hide="mobile-drawer">Get Involved</a>
+      <a href="#contact" class="block nav-link" data-drawer-hide="mobile-drawer">Contact</a>
+    </div>
+  </div>
+
+  <!-- Header Banner / Hero -->
+  <section id="home" class="relative h-screen bg-cover bg-center" style="background-image: url('images/kalisha-banner.jpg')">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Turning Pain Into Purpose</h1>
+      <p class="mt-4 text-xl md:text-2xl text-gray-200">Support. Heal. Thrive.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <a href="#get-involved" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">Donate Now</a>
+        <a href="#mission" class="px-6 py-3 border border-white text-white hover:bg-white hover:text-gray-900 rounded-lg transition">Join Our Mission</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section id="about" class="relative py-24 bg-gradient-to-b from-gray-50 via-white to-gray-100">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20">
+    <div class="grid md:grid-cols-2 gap-12 items-start animate-fade-in-up">
+      
+      <!-- Section Header -->
+      <div class="space-y-6">
+        <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">
+          Who We Are
+        </h2>
+        <p class="text-blue-700 font-medium text-lg italic">
+          “This isn't just my story — it's the story of far too many Black women in America.”
+        </p>
+      </div>
+
+      <!-- Story Content -->
+      <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 border-l-4 border-blue-600 space-y-5 text-gray-700 text-base leading-relaxed">
+        <p>
+          My name is <span class="font-semibold text-gray-900">Kalisha</span>. I'm a <strong>31-year-old</strong> woman from Chicago and a survivor of gun violence. In <strong>April 2024</strong>, I was shot five times. Two bullets struck my aorta. I survived multiple surgeries and lost my left leg above the knee.
+        </p>
+        <p>
+          The shooter was the younger brother of my childhood best friend — a tragedy rooted in jealousy, trauma, and the systemic issues that plague our inner-city communities.
+        </p>
+        <p>
+          I received <span class="text-red-600 font-semibold">no Victims Fund support</span>, no city or disability housing assistance. So I created <span class="font-bold text-blue-700">Heal and Thrive Chicago</span> — a platform and support system for survivors like me.
+        </p>
+      </div>
+
+    </div>
+  </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section id="mission" class="relative py-24 bg-gradient-to-b from-white via-gray-50 to-white">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-5xl animate-fade-in-up">
+    
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">
+        Mission &amp; Vision
+      </h2>
+      <p class="mt-2 text-gray-600 text-lg">Our purpose, our plan, and the path we walk together.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      
+      <!-- Mission -->
+      <div class="bg-white border border-blue-100 shadow-sm rounded-xl p-6 transition hover:shadow-md hover:border-blue-300">
+        <span class="inline-block mb-3 text-sm font-medium uppercase tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
+          Mission Statement
+        </span>
+        <p class="text-gray-700 leading-relaxed text-base">
+          To support and empower <strong>Black survivors</strong> of gun and domestic violence who have become disabled, and all amputees, by offering <span class="text-blue-700 font-semibold">physical recovery programs</span>, emotional and mental health services, and pathways to <span class="font-semibold text-green-700">financial independence</span>.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="bg-white border border-blue-100 shadow-sm rounded-xl p-6 transition hover:shadow-md hover:border-blue-300">
+        <span class="inline-block mb-3 text-sm font-medium uppercase tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
+          Vision
+        </span>
+        <ul class="space-y-4 text-gray-700 leading-relaxed list-none">
+          <li class="flex items-start">
+            <span class="mt-1 mr-2 text-blue-600 text-lg">•</span>
+            <span>Create <strong>safe, active healing</strong> spaces</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mt-1 mr-2 text-blue-600 text-lg">•</span>
+            <span>Break cycles of <strong>retaliation and hopelessness</strong></span>
+          </li>
+          <li class="flex items-start">
+            <span class="mt-1 mr-2 text-blue-600 text-lg">•</span>
+            <span>Promote <strong>strength, recovery, and reintegration</strong></span>
+          </li>
+          <li class="flex items-start">
+            <span class="mt-1 mr-2 text-blue-600 text-lg">•</span>
+            <span>Begin support at <strong>hospital discharge</strong> through collaboration with doctors and social workers</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs" class="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-100">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20">
+    
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-4">What We Do</h2>
+      <p class="text-lg text-gray-600">Programs designed to rebuild, empower, and uplift survivors from day one.</p>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 animate-fade-in-up">
+      
+      <!-- Card -->
+      <div class="bg-white border border-blue-100 rounded-xl p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition">
+        <div class="mb-4 flex items-center space-x-3">
+          <div class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-lg">1</div>
+          <span class="text-sm uppercase tracking-wide font-medium text-blue-700">Fitness</span>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900 mb-3">Physical Recovery &amp; Fitness</h4>
+        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+          <p>Adaptive workouts (Kalisha-led)</p>
+          <p>Rehab partners: hospitals, Hanger Clinic</p>
+        </ul>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-white border border-blue-100 rounded-xl p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition">
+        <div class="mb-4 flex items-center space-x-3">
+          <div class="h-10 w-10 flex items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-lg">2</div>
+          <span class="text-sm uppercase tracking-wide font-medium text-green-700">Mental Health</span>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900 mb-3">Emotional &amp; Mental Health</h4>
+        <div class="list-disc list-inside text-gray-700 text-sm space-y-1">
+          <p>Peer mentoring &amp; 1-on-1 coaching</p>
+          <p>Group therapy &amp; journaling</p>
+          <p>Therapy referrals</p>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-white border border-blue-100 rounded-xl p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition">
+        <div class="mb-4 flex items-center space-x-3">
+          <div class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-600 font-bold text-lg">3</div>
+          <span class="text-sm uppercase tracking-wide font-medium text-yellow-700">Financial</span>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900 mb-3">Financial Stability</h4>
+        <div class="list-disc list-inside text-gray-700 text-sm space-y-1">
+          <p>Rental &amp; transitional housing</p>
+          <p>SSI/SSD guidance &amp; retraining</p>
+          <p>Transportation support</p>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-white border border-blue-100 rounded-xl p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition">
+        <div class="mb-4 flex items-center space-x-3">
+          <div class="h-10 w-10 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 font-bold text-lg">4</div>
+          <span class="text-sm uppercase tracking-wide font-medium text-purple-700">Life Skills</span>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900 mb-3">Skills, Nutrition &amp; Life Coaching</h4>
+        <div class="list-disc list-inside text-gray-700 text-sm space-y-1">
+          <p>Meal prep &amp; nutrition planning</p>
+          <p>Job readiness &amp; certification</p>
+          <p>Daily life coaching</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </section>
+
+  <!-- Our Partners -->
+  <section id="partners" class="py-24 bg-white">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-5xl animate-fade-in-up">
+    
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Our Partners</h2>
+      <p class="text-gray-600 text-lg">Collaboration is the cornerstone of healing. We're proud to stand with these incredible allies.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">Mettle Fitness</p>
+        <p class="text-sm text-gray-600">(Jason Burns)</p>
+      </div>
+
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">The Gage Group</p>
+        <p class="text-sm text-gray-600">(Billy &amp; Catherine Lawless)</p>
+      </div>
+
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">Maurice Douglas</p>
+        <p class="text-sm text-gray-600">&nbsp;</p>
+      </div>
+
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">Sen. Mattie Hunter</p>
+        <p class="text-sm text-gray-600">(and more pending)</p>
+      </div>
+
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">Hanger Clinic</p>
+        <p class="text-sm text-gray-600">(Tom — pending)</p>
+      </div>
+
+      <!-- Partner Card -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition">
+        <p class="text-lg font-semibold text-blue-700 mb-1">Celebrity Collaborators</p>
+        <p class="text-sm text-gray-600">(TBD)</p>
+      </div>
+
+    </div>
+  </div>
+  </section>
+
+  <!-- Why Now / Get Involved -->
+  <section id="get-involved" class="py-24 bg-gradient-to-b from-red-50 via-white to-gray-50">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-6xl animate-fade-in-up">
+    
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      
+      <!-- WHY NOW -->
+      <div>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Why Now</h2>
+        <p class="text-gray-700 leading-relaxed mb-4 text-base">
+          Over <span class="font-semibold text-red-600">80%</span> of nonfatal shootings in Chicago affect Black communities. Many survivors are left <span class="font-semibold">disabled, unsupported, and forgotten</span>.
+        </p>
+        <p class="text-gray-700 leading-relaxed text-base">
+          <strong>Heal and Thrive Chicago</strong> was built to change that. We believe survivors deserve more than silence — they deserve a chance to rebuild with <span class="text-blue-700 font-semibold">dignity</span>, <span class="text-blue-700 font-semibold">community</span>, and <span class="text-blue-700 font-semibold">opportunity</span>.
+        </p>
+      </div>
+
+      <!-- GET INVOLVED ACTIONS -->
+      <div>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-6">Get Involved</h2>
+        <p class="text-gray-700 leading-relaxed mb-6 text-base">
+          Whether you're ready to donate, volunteer, or amplify our mission — there’s a way for everyone to stand with survivors.
+        </p>
+
+        <div class="space-y-4">
+          <!-- Donate -->
+          <div class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition">
+            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600">
+              💸
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg font-semibold text-gray-900">Donate</h4>
+              <p class="text-sm text-gray-600">Support the mission directly via GoFundMe</p>
+            </div>
+            <a href="https://gofund.me/d5e8f6ea" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Give</a>
+          </div>
+
+          <!-- Partner -->
+          <div class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition">
+            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-green-100 text-green-600">
+              🤝
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg font-semibold text-gray-900">Partner With Us</h4>
+              <p class="text-sm text-gray-600">Support a survivor or collaborate as an organization</p>
+            </div>
+            <a href="#partners" class="text-green-600 hover:underline text-sm font-medium">Learn More</a>
+          </div>
+
+          <!-- Sponsor -->
+          <div class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition">
+            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-purple-100 text-purple-600">
+              📣
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg font-semibold text-gray-900">Become a Sponsor</h4>
+              <p class="text-sm text-gray-600">Help us scale the movement with funding or visibility</p>
+            </div>
+            <a href="#contact" class="text-purple-600 hover:underline text-sm font-medium">Connect</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </section>
+
+  <!-- Contact -->
+    <!-- Updated Footer -->
+  <footer class="bg-gray-800 text-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Brand Identity -->
+      <div class="flex flex-col items-start space-y-4">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAMAAABC4vDmAAAAZlBMVEX///9gYGBjY2NaWlpdXV1UVFRRUVFXV1dOTk7n5+dISEj8/Pxvb2/4+Pjx8fHr6+uzs7OlpaXZ2dl5eXmPj4/AwMDOzs5paWmsrKzh4eGCgoKenp6Xl5eIiIhBQUG6uromJiYvLy/FI5GlAAAFyElEQVR4nO2b6XLjKhBGEbuENgsJ7dbc93/Ji+Rl4gTZCQKnporjP8Hrl6bpbjYAAoFAIBAIBAKBQCAQ+PcQWZ7HvabI80z8thpN1qtyrAeZtppUDvVYqjj7TUFVN6eMUsowjjYwRrpJ2rqsfkdY30mI0FXNIxghKLv43YryRZ6pSc8dSM+yyd8pqYMUwaeaVlmYtt27ZBWniMOXkjZZMMGn4g2SsiUl0bckbbIiIhfvPl9JbvTtZ504VF4lZR3C37bSHURLj8aKJf+5pNVaXHrzLBW9HnI7qhhUfjQtP/SmBzBpPGTF7PQ8WL6EnJyrykZyTFMUcdeqxHRYk1Y1udU0UksXf4CeXIrquANJGt6509TYhScDpHGlqXLgT1cwcpRycnkgPn0GSScZR9TMnSZd+zkZgupg0PysKlHgcLyKW4edt6mCx5PzibkaeTfY4WhVOYpQD6qOjkCnXn6FTMecSjkLmx9Bx4oriTxoitB8RFN19mEoHRYOeJWYvBhKR9DRXlTcetG01uz2Cw2lH0OtplqsRbnMxI8gaaspdleyfAYmtrlm8RDNb3DL/st8RPM7s11U9zb2Nlq7/lM+DRVFdqmmIy/DOdbV0cObPrdgtDeAUWklajZa6uFHMELsw1qsbn5YmsVYv7gb6VBtJSo1fCGaRnj/VYanRqmlxpc3omjUzU6SyxtIe9LNciZmXVjaeHpmiFJreLlrZXMMRJ4LEM9o0xuDrMiBaLZ3sjHbmkCZKw0c2azRFslzUUzmQNVpOitQDChCgwDlkMpTDJoEQqYLuWVO5diD2OxXVunPVLbAJP5rqQqUiXY7RhZQoQjGYuQowjzNQarTSC4mjjAmrN9JocSmfFHPRbFaFMk1kuVAslqHkPUDkC/ZiGh5+zyaRWEMeNQmJjTPRdHmPtHRf3Z/qns5z88M6tn5cPVJXIHZ1H/UZllhSZ5bSoH62i3kBJY/hbbWpmEVgNsiS69KWAOMtaJV9VIa5gwfRK22uEYHLar5L1vreTaKLMuE4mmR3z6jRY1GUTbRszTUCB8t9bdXSKcttfqVdiCl0ZNFLer2L+mpy2TsPjtRTy1FVp+6PMsVGP/0m08hShKZKR71d59q+8xYLFqJeu5TUPdZdb6NPiGTBSzbSsg6KVBcS16uo28QvTGHWvnU3uhrKVvBsAenBK97oQ1oKGzzbKa6SaJCdx+SmRiojlOMxGAyJlFuExL24tQ015q5pZMQnYRQNqDXIw11IJ/aqK37TItqdUTNxxTCuVojq9FSNqLMEf2WsMSAyaTrtFw/UaWrKUipk51uFrKvtDvyaxM00Fy9WEX0wuBTesyfLozanUjaqb5S0/VX8bBUlRpTWk9rVEVDWfV9M5u3mSNslfsEM30bIxe2FzHhlNO7xyDKOdWFC7o8o1/Vj72Cyq5KMNZTL/n22oNdPQVqf9O+aC2/bDSB0uvEwbJG3xnKrrBbDSpSj5Kg5bzP6wwZ201mwDWZeQFy252j2KNTJdbnTQZ/61ODrSaweFvJO7DvZ56GuBAVHdifMVdCx+FHtmdiP+voET10Cm3wYirLFZcbvZOt/8/oSvoIovYQQI/uYoHCQ//Bw+caT647EB7fGQW569017OIQgPPddifHJZxubcNDcfMvTjuQuDnBoUcgdlYtIMuC04AyzUttwMzhecHGsFJsg9WS4i5uplvEblq1S+fiTJ7Dc2YbojysipbuT3qa1kB/AHbddxfU7grKayA6eJRkl6q1Tc6Qpt6Of+f1zgrYK0jt8ey3aPDr7dIv0MhpePpKPP3QsyBik/fLKkLJH4R3GCXSk4d/ktWk/Hun5SGmqY9j6EayJj2/7kSIzmnz1ttPamp37jxdQaid/N4CMRE3M6b0S6KG+sE4xXPz9rtYF3LV1Sm7bNVsbH+itO7UO29hfSErqqac1vt9EMJUDlPZVMVv3u97QGh+W0MgEAgEAoFAIBAIBP4R/gcIFlbgIR3QgAAAAABJRU5ErkJggg==" alt="Heal and Thrive Chicago Logo" class="h-24">
+        <p class="text-md">This is more than a nonprofit — it's a movement.</p>
+        <p class="text-sm">Health is wealth. Healing is power. Community is everything.</p>
+      </div>
+
+      <!-- Contact Information -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+        <p>Email: <a href="mailto:healandthrivechicago@outlook.com" class="text-green-200 hover:underline">healandthrivechicago@outlook.com</a></p>
+        <div class="flex space-x-4 mt-4">
+          <a href="https://www.instagram.com/healandthrivechicago" target="_blank" class="text-gray-400 hover:text-green-200">
+            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.75 2A5.75 5.75 0 0 0 2 7.75v8.5A5.75 5.75 0 0 0 7.75 22h8.5A5.75 5.75 0 0 0 22 16.25v-8.5A5.75 5.75 0 0 0 16.25 2h-8.5zM12 5.75a6.25 6.25 0 1 1 0 12.5 6.25 6.25 0 0 1 0-12.5zm7.25-.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm-7.25 2a4.25 4.25 0 1 0 0 8.5 4.25 4.25 0 0 0 0-8.5z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/healandthrivechicago" target="_blank" class="text-gray-400 hover:text-green-200">
+            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.675 0H1.325C.593 0 0 .592 0 1.324V22.68c0 .73.592 1.32 1.325 1.32H12v-9.845H9.358v-3.43H12V7.406c0-2.62 1.596-4.047 3.926-4.047 1.115 0 2.073.084 2.353.122v2.73h-1.613c-1.27 0-1.516.603-1.516 1.488v1.95h3.032l-.395 3.429H15.15V24h7.525c.73 0 1.32-.59 1.32-1.32V1.32C24 .59 23.41 0 22.675 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#about" class="text-gray-400 hover:text-green-200">Who We Are</a></li>
+          <li><a href="#mission" class="text-gray-400 hover:text-green-200">Mission &amp; Vision</a></li>
+          <li><a href="#programs" class="text-gray-400 hover:text-green-200">What We Do</a></li>
+          <li><a href="#contact" class="text-gray-400 hover:text-green-200">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Important Pages -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Stay Connected</h3>
+        <ul class="space-y-2">
+          <li><a href="https://gofund.me/d5e8f6ea" target="_blank" class="text-gray-400 hover:text-green-200">Donation Page</a></li>
+          <li><a href="#contact" class="text-gray-400 hover:text-green-200">Volunteer Signup</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-gray-700 pt-4">
+      <p class="text-center text-gray-500 text-sm">
+        &copy; 2025 Heal and Thrive Chicago. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Navbar scroll-toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.getElementById('navbar');
+      const hero   = document.getElementById('home');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > (hero.offsetHeight - navbar.offsetHeight)) {
+          navbar.classList.add('navbar-solid');
+          navbar.classList.remove('navbar-transparent');
+        } else {
+          navbar.classList.add('navbar-transparent');
+          navbar.classList.remove('navbar-solid');
+        }
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const drawer = document.getElementById('mobile-drawer');
+      const openBtn = document.querySelector('[data-drawer-show]');
+      const closeBtn = drawer.querySelector('[data-drawer-hide]');
+
+      if (openBtn && closeBtn && drawer) {
+        openBtn.addEventListener('click', () => drawer.classList.remove('-translate-x-full'));
+        closeBtn.addEventListener('click', () => drawer.classList.add('-translate-x-full'));
+      }
+    });
+  </script>
+</body>
+</html>
